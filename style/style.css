@@ -1,0 +1,555 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Onest', sans-serif;
+}
+
+:root {
+    --color-white: #fff;
+    --color-1: #350048;
+    --color-2: rgba(255, 255, 255, 0.05);
+    --color-3: rgba(0, 0, 0, 0.2);
+    --color-4: rgba(255, 255, 255, 0.1);
+    --color-gradient-1: rgba(255, 255, 255, 0.15);
+
+}
+
+.navigationBar {
+    display: flex;
+    justify-content: space-between;
+    /* Logo on left, Nav on right */
+    align-items: center;
+    background-color: black;
+    padding: 10px 20px;
+    height: 60px;
+    /* Optional: give your nav bar a set height */
+}
+
+.navigationBar img {
+    margin: 0px 150px 0px 50px;
+}
+
+.navigationBar nav {
+    /* Remove display: inline; */
+    display: flex;
+    /* This is the key */
+    align-items: center;
+    /* Keeps links vertically centered */
+    gap: 20px;
+    /* This adds the space between the <a> tags */
+
+    margin-left: auto;
+    /* Pushes the nav to the right side of the bar */
+    margin-right: 20px;
+    /* Optional: prevents it from hitting the screen edge */
+}
+
+.navigationBar a {
+    color: red;
+    text-decoration-color: blue;
+    /* Standard practice for nav links */
+    display: inline-block;
+    /* Allows for better padding/hover control */
+}
+
+.navigationBar a:hover {
+    letter-spacing: 1px;
+    text-decoration: overline;
+    text-decoration-color: blueviolet;
+    transition: 0.5s;
+}
+
+.intro {
+    background-image: url('../assets/brickBackground.png');
+    background-size: cover;
+    height: 100vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.intro h1 {
+    margin: 0px;
+}
+
+.intro p {
+    font-size: 10px;
+    margin-top: 0px;
+}
+
+/* Container for the buttons */
+.btnGroup {
+    display: flex;
+    justify-content: center;
+    /* Centers buttons horizontally */
+    align-items: center;
+    gap: 20px;
+    /* Space between buttons */
+    margin-top: 30px;
+    width: auto;
+    /* Changed from 600px to auto */
+}
+
+/* The Button Body */
+.btnGroup .btn {
+    position: relative;
+    width: 155px;
+    /* Fixed width */
+    height: 50px;
+    /* Fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-2);
+    box-shadow: 0 15px 35px var(--color-3);
+    border-top: 1px solid var(--color-4);
+    border-bottom: 1px solid var(--color-4);
+    border-radius: 30px;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.5s;
+    backdrop-filter: blur(15px);
+}
+
+/* The Link inside the button */
+.btnGroup .btn a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 1px;
+    transition: 0.5s;
+    z-index: 2;
+    /* Ensures text stays above glowing effect */
+}
+
+.btnGroup .btn:hover a {
+    letter-spacing: 3px;
+}
+
+/* The Glowing Shapes (Before/After) */
+.btn::before,
+.btn::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 10px;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+    z-index: -1;
+    /* Place behind the text */
+}
+
+.btn::before {
+    bottom: -5px;
+}
+
+.btn::after {
+    top: -5px;
+}
+
+/* Hover Animations */
+.btnGroup .btn:hover::before {
+    bottom: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.3s;
+}
+
+.btnGroup .btn:hover::after {
+    top: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.3s;
+}
+
+/* Glow Colors */
+.btnGroup .btn:nth-child(1)::before,
+.btnGroup .btn:nth-child(1)::after {
+    background: #ef196e;
+    box-shadow: 0 0 15px #ff1f71;
+}
+
+.btnGroup .btn:nth-child(2)::before,
+.btnGroup .btn:nth-child(2)::after {
+    background: #2bd2ff;
+    box-shadow: 0 0 15px #2bd2ff;
+}
+
+.welcomeDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px;
+}
+
+.welcomeDiv .cards {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+/* Card Base State */
+.welcomeDiv .card {
+    position: relative;
+    /* Required for the absolute pseudo-element */
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    overflow: hidden;
+    /* Clips the sliding background to the card corners */
+    z-index: 1;
+    transition: color 0.4s ease;
+    /* Smoothly transition text color */
+}
+
+/* The "Slide" Layer */
+.welcomeDiv .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(54, 54, 54);
+
+    /* Originates from top-left, starts at size 0 */
+    transform: scale(0);
+    transform-origin: top left;
+
+    transition: transform 0.4s ease-out;
+    z-index: -1;
+    /* Placed behind the text */
+}
+
+/* Hover State - ONLY trigger the background slide */
+.welcomeDiv .card:hover::before {
+    transform: scale(1);
+}
+
+/* Change text colors on hover so they are visible against the dark background */
+.welcomeDiv .card:hover p,
+.welcomeDiv .card:hover h4 {
+    color: white;
+}
+
+/* Text & Link Styles */
+.welcomeDiv .card p {
+    color: gray;
+    transition: color 0.4s ease;
+}
+
+.welcomeDiv .card a {
+    color: #0066fe;
+    position: relative;
+    z-index: 2;
+    /* Ensures link remains clickable above the slide */
+}
+
+h2 {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+
+    width: 50%;
+    height: 3px;
+    background-color: #0066fe;
+    transition: transform 0.4s ease-in-out;
+}
+
+h2:hover::after {
+    cursor: zoom-in;
+    transform: scale(2);
+}
+
+.featuredDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.featuredDiv .ftWork {
+    display: grid;
+    /* Creates 3 columns of equal width */
+    grid-template-columns: repeat(3, 1fr);
+    /* Gap between images */
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.featuredDiv .ftWork .image-wrapper {
+    position: relative;
+
+    width: 350px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.featuredDiv .ftWork .image-wrapper img {
+    width: 350px;
+    height: 300px;
+    /* Prevents distortion if the original pic has a different ratio */
+    object-fit: cover;
+    /* Optional: Add basic styling */
+    border-radius: 8px;
+}
+
+.featuredDiv .ftWork .image-wrapper .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Semi-transparent black */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+
+    /* Start hidden and slightly lower for a "slide up" effect */
+    opacity: 0;
+    transform: scaleX(5);
+    transition: all 0.4s ease;
+}
+
+/* Hover State: Show the overlay and slide it into place */
+.featuredDiv .ftWork .image-wrapper:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.featuredDiv .ftWork .overlay h6 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.featuredDiv .ftWork .overlay p {
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+.featuredDiv .ftWork .overlay a {
+    color: #0066fe;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.offerDiv {
+    margin: 100px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.offerDiv .offers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 0 auto;
+}
+
+/* Card Base State */
+.offerDiv .offerCard {
+    position: relative;
+    /* Required for the absolute pseudo-element */
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    overflow: hidden;
+    /* Clips the sliding background to the card corners */
+    z-index: 1;
+    transition: color 0.4s ease;
+    /* Smoothly transition text color */
+}
+
+.offerDiv .offerCard .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+
+    width: 100%;
+    /* Ensure internal alignment is left */
+    justify-content: flex-start;
+}
+
+/* The "Slide" Layer */
+.offerDiv .offerCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(54, 54, 54);
+
+    /* Originates from top-left, starts at size 0 */
+    transform: scale(0);
+    transform-origin: top left;
+
+    transition: transform 0.4s ease-out;
+    z-index: -1;
+    /* Placed behind the text */
+}
+
+/* Hover State - ONLY trigger the background slide */
+.offerDiv .offerCard:hover::before {
+    transform: scale(1);
+}
+
+.offerDiv .offerCard p {
+    font-size: smaller;
+    margin-bottom: 20px;
+}
+
+/* Change text colors on hover so they are visible against the dark background */
+.offerDiv .offerCard:hover p,
+.offerDiv .offerCard:hover h4 {
+    color: white;
+}
+
+.reasonDiv {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 40px; /* Nice gap between image and text */
+    margin: 100px;
+}
+
+.reasonContent {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    flex: 1;
+}
+
+/* --- Image Styling & Circles --- */
+.reasonImage {
+    position: relative; 
+    flex-shrink: 0; 
+    
+    /* Simulate a thicker bottom border using padding on the wrapper */
+    padding: 10px 10px 40px 10px; /* Top/Left/Right 10px, Bottom 40px */
+    background-color: white; /* The border color */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    border-radius: 5px; /* Optional rounded corners for the frame */
+}
+
+.reasonImage img {
+    width: 300px;
+    height: 400px;
+    display: block;
+    object-fit: cover;
+}
+
+/* Use a single pseudo-element for the three circles container */
+.reasonImage::before {
+    content: '';
+    position: absolute;
+    bottom: 0px; /* Position at the very bottom of the 40px padding area */
+    right: 10px; /* Aligned with the right edge */
+    
+    /* We use background properties here to draw all three circles at once */
+    width: 100px; /* Width needed to fit 3 circles + gaps */
+    height: 30px; /* Enough height for the circles */
+    
+    background-image: 
+        radial-gradient(circle at 10px 10px, #ffb6c1 10px, transparent 11px), /* Red Pastel */
+        radial-gradient(circle at 45px 10px, #a2d5c6 10px, transparent 11px), /* Green Pastel */
+        radial-gradient(circle at 80px 10px, #b0e0e6 10px, transparent 11px); /* Blue Pastel */
+
+    background-repeat: no-repeat;
+    /* Centers the circles vertically within that 40px bottom padding space */
+    transform: translateY(-50%); 
+}
+
+.reasonDiv h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+
+    width: 10%;
+    height: 3px;
+    background-color: #0066fe;
+    transition: transform 0.4s ease-in-out;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    cursor: default;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    /* Step 1: Remove default browser styling */
+    appearance: none;
+    -webkit-appearance: none;
+    
+    /* Step 2: Create the circle */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0066fe;
+    border-radius: 50%; /* Makes it a perfect circle */
+    
+    /* Step 3: Positioning for the "check" */
+    display: grid;
+    place-content: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for when it is checked */
+.custom-checkbox input[type="checkbox"]:checked {
+    background-color: #0066fe;
+}
+
+/* Create the checkmark inside the circle using a pseudo-element */
+.custom-checkbox input[type="checkbox"]::before {
+    content: "✓"; /* Simple checkmark symbol */
+    color: white;
+    font-size: 14px;
+    transform: scale(0); /* Hide by default */
+    transition: transform 0.2s ease-in-out;
+}
+
+.custom-checkbox input[type="checkbox"]:checked::before {
+    transform: scale(1); /* Show when checked */
+}
