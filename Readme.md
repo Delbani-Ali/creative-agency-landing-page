@@ -103,7 +103,7 @@ project/
 1. Download or clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/Delbani-Ali/creative-agency-landing-page.git
    ```
 
 2. Open `index.html` in your browser.
